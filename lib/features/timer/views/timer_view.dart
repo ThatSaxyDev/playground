@@ -54,8 +54,9 @@ class _TimerViewState extends ConsumerState<TimerView> {
                     ),
                     const SizedBox(height: 30),
                     Expanded(
-                      child: '00:00:$timeFromState'.txt(
-                          size: 150, fontFamily: AppFonts.uni, maxLines: 1),
+                      child: '00:00:${timeFromState.toString().padLeft(2, '0')}'
+                          .txt(
+                              size: 150, fontFamily: AppFonts.uni, maxLines: 1),
                     ),
                     Center(
                       child: CustomizableRow(
