@@ -245,7 +245,7 @@ class TransparentButton extends ConsumerWidget {
 //   }
 // }
 
-class AnimatedButton extends StatelessWidget {
+class AnimatedButton extends ConsumerWidget {
   final double? height;
   final double? width;
   final double? loadingWidth;
@@ -255,21 +255,26 @@ class AnimatedButton extends StatelessWidget {
   final Color? color;
   final BoxBorder? border;
   final bool isLoading;
+  final Color? textColor;
+  final EdgeInsetsGeometry? margin;
   const AnimatedButton({
     Key? key,
     this.height,
-    this.loadingWidth,
     this.width,
+    this.loadingWidth,
     this.radius,
     this.onTap,
     required this.content,
     this.color,
     this.border,
     required this.isLoading,
+    this.textColor,
+    this.margin,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ThemeData currentTheme = ref.watch(themeNotifierProvider);
     return InkWell(
       onTap: onTap,
       child: AnimatedContainer(
@@ -285,26 +290,23 @@ class AnimatedButton extends StatelessWidget {
                 true => 370.w,
                 false => width,
               },
+        margin: margin,
         decoration: BoxDecoration(
-            color: color ?? Palette.red,
-            borderRadius: BorderRadius.circular(
-              isLoading
-                  ? switch (loadingWidth == null) {
-                      true => 61.w,
-                      false => loadingWidth!,
-                    }
-                  : switch (width == null) {
-                      true => 5.r,
-                      false => radius!,
-                    },
-            ),
-            border: border),
-        child: Center(
-            child: isLoading
-                ? const CircularProgressIndicator(
-                    color: Palette.whiteColor,
-                  )
-                : content),
+          color: currentTheme.textTheme.bodyMedium!.color,
+          borderRadius: BorderRadius.circular(
+            isLoading
+                ? switch (loadingWidth == null) {
+                    true => 61.w,
+                    false => loadingWidth!,
+                  }
+                : switch (width == null) {
+                    true => 7,
+                    false => radius!,
+                  },
+          ),
+          border: border,
+        ),
+        child: Center(child: isLoading ? null : content),
       ),
     );
   }
