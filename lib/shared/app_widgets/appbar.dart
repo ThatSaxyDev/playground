@@ -25,7 +25,7 @@ AppBar customAppBar(
   return AppBar(
     surfaceTintColor: Colors.transparent,
     foregroundColor: foregroundColor ?? Palette.neutralBlack,
-    backgroundColor: color ?? Palette.neutralWhite,
+    backgroundColor: color ?? Palette.whiteColor,
     automaticallyImplyLeading: automaticallyImplyLeading,
     leading: switch (automaticallyImplyLeading) {
       true => showCustomIcon

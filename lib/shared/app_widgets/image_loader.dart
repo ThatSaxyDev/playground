@@ -48,7 +48,7 @@ class ImageLoader extends ConsumerWidget {
             .animate(onPlay: (controller) => controller.repeat())
             .shimmer(duration: 1200.ms),
         errorWidget: (context, url, error) => Container(
-          color: Palette.neutralWhite.withOpacity(0.1),
+          color: Palette.whiteColor.withOpacity(0.1),
           child: Center(
             child: Icon(
               Icons.error,
@@ -102,7 +102,7 @@ class CircularImageLoader extends ConsumerWidget {
             .animate(onPlay: (controller) => controller.repeat())
             .shimmer(duration: 1200.ms),
         errorWidget: (context, url, error) => Container(
-          color: Palette.neutralWhite.withOpacity(0.1),
+          color: Palette.whiteColor.withOpacity(0.1),
           child: Center(
             child: Icon(
               Icons.error,
@@ -177,7 +177,7 @@ class ImageLoaderForOverlay extends ConsumerWidget {
             .animate(onPlay: (controller) => controller.repeat())
             .shimmer(duration: 1200.ms),
         errorWidget: (context, url, error) => Container(
-          color: Palette.neutralWhite.withOpacity(0.1),
+          color: Palette.whiteColor.withOpacity(0.1),
           child: Center(
             child: Icon(
               Icons.error,

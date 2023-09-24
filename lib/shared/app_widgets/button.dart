@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:getlinked/shared/app_extensions.dart';
 import 'package:getlinked/theme/palette.dart';
 
-class BButton extends StatelessWidget {
+class BButton extends ConsumerWidget {
   final double? height;
   final double? width;
   final double? fontSize;
@@ -40,32 +40,25 @@ class BButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ThemeData currentTheme = ref.watch(themeNotifierProvider);
     return Container(
-      height: height ?? 61.h,
+      height: height ?? 61,
       width: width ?? double.infinity,
       decoration: ShapeDecoration(
-        gradient: gradient ??
-            const LinearGradient(
-              begin: Alignment(-1.00, -0.00),
-              end: Alignment(1, 0),
-              colors: [
-                Color(0xFF903AFF),
-                Color(0xFFD434FE),
-                Color(0xFFFF25B8),
-                Color(0xFFFE34B9)
-              ],
-            ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
+        color: currentTheme.textTheme.bodyMedium!.color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(7),
+        ),
       ),
       child: Center(
         child: isText == true
             ? Text(text ?? '',
                 style: GoogleFonts.montserrat(
                   textStyle: TextStyle(
-                    fontSize: fontSize ?? 14.sp,
+                    fontSize: fontSize ?? 14,
                     fontWeight: fontWeight ?? FontWeight.w400,
-                    color: textColor ?? Palette.neutralWhite,
+                    color: textColor ?? currentTheme.backgroundColor,
                   ),
                 ))
             : item,
@@ -117,7 +110,7 @@ class ArrowButton extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 21.w),
           elevation: 0,
           shadowColor: Colors.transparent,
-          backgroundColor: color ?? Palette.textPurple,
+          backgroundColor: color ?? Palette.blueColor,
         ),
         child: Center(
           child: Row(
@@ -129,13 +122,13 @@ class ArrowButton extends StatelessWidget {
                   textStyle: TextStyle(
                     fontSize: fontSize ?? 18.sp,
                     fontWeight: fontWeight ?? FontWeight.w500,
-                    color: textColor ?? Palette.neutralWhite,
+                    color: textColor ?? Palette.whiteColor,
                   ),
                 ),
               ),
               Icon(
                 Icons.arrow_forward_rounded,
-                color: Palette.neutralWhite,
+                color: Palette.whiteColor,
                 size: 24.sp,
               ),
             ],
@@ -186,7 +179,7 @@ class TransparentButton extends ConsumerWidget {
           shape: RoundedRectangleBorder(
             side: BorderSide(
               width: 1.5,
-              color: color ?? Palette.neutralWhite,
+              color: color ?? Palette.whiteColor,
             ),
             borderRadius: BorderRadius.all(
               Radius.circular(radius ?? 4.r),
@@ -204,7 +197,7 @@ class TransparentButton extends ConsumerWidget {
                   style: TextStyle(
                     fontSize: fontSize ?? 16.sp,
                     fontWeight: fontWeight ?? FontWeight.w500,
-                    color: textColor ?? Palette.neutralWhite,
+                    color: textColor ?? Palette.whiteColor,
                   ),
                 )
               : item,
@@ -293,7 +286,7 @@ class AnimatedButton extends StatelessWidget {
                 false => width,
               },
         decoration: BoxDecoration(
-            color: color ?? Palette.textPurple,
+            color: color ?? Palette.red,
             borderRadius: BorderRadius.circular(
               isLoading
                   ? switch (loadingWidth == null) {
@@ -309,7 +302,7 @@ class AnimatedButton extends StatelessWidget {
         child: Center(
             child: isLoading
                 ? const CircularProgressIndicator(
-                    color: Palette.neutralWhite,
+                    color: Palette.whiteColor,
                   )
                 : content),
       ),

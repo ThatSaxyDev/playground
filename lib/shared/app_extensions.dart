@@ -1,10 +1,12 @@
 //! THIS FILE CONTAINS HOPEFULLY, ALL EXTENSIONS USED IN THE APP.
 
 import "dart:io";
+import "package:auto_size_text/auto_size_text.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_animate/flutter_animate.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:getlinked/shared/app_fonts.dart";
 import "package:getlinked/theme/palette.dart";
@@ -49,7 +51,7 @@ extension StringCasingExtension on String {
 }
 
 extension StyledTextExtension on String {
-  Text txt({
+  Text txta({
     double? size,
     Color? color,
     FontWeight? fontWeight,
@@ -61,6 +63,7 @@ extension StyledTextExtension on String {
     int? maxLines,
     double? height,
     F? fontW,
+    WidgetRef? ref,
   }) {
     return Text(
       this,
@@ -70,7 +73,47 @@ extension StyledTextExtension on String {
       style: TextStyle(
         height: height,
         fontSize: size ?? 14.sp,
-        color: color ?? Palette.neutralBlack.withOpacity(0.75),
+        color: color,
+        fontWeight: switch (fontW) {
+          F.w3 => FontWeight.w300,
+          F.w5 => FontWeight.w500,
+          F.w6 => FontWeight.w600,
+          F.w7 => FontWeight.w700,
+          F.w8 => FontWeight.w800,
+          _ => fontWeight,
+        },
+        fontFamily: fontFamily ?? AppFonts.mont,
+        fontStyle: fontStyle,
+        decoration: decoration,
+      ),
+    );
+  }
+}
+
+extension StyledTextExtensionAuto on String {
+  AutoSizeText txt({
+    double? size,
+    Color? color,
+    FontWeight? fontWeight,
+    String? fontFamily,
+    FontStyle? fontStyle,
+    TextOverflow? overflow,
+    TextDecoration? decoration,
+    TextAlign? textAlign,
+    int? maxLines,
+    double? height,
+    F? fontW,
+    WidgetRef? ref,
+  }) {
+    return AutoSizeText(
+      this,
+      overflow: overflow,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      style: TextStyle(
+        height: height,
+        fontSize: size ?? 14.sp,
+        color: color,
         fontWeight: switch (fontW) {
           F.w3 => FontWeight.w300,
           F.w5 => FontWeight.w500,
